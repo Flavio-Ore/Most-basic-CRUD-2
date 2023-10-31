@@ -1,5 +1,20 @@
 import { pool } from '../db.js'
 
+export const patchTask = async (req, res) => {
+  try {
+    const { id } = req.params
+    const { done } = req.body
+    console.log('{id, done} :>> ', { id, done })
+    await pool.query('UPDATE tasks SET done=? WHERE id=?', [done, id])
+
+    return res.sendStatus(204)
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || 'Something goes wrong patching the task'
+    })
+  }
+}
+
 export const getTasks = async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -52,10 +67,10 @@ export const createTask = async (req, res) => {
 }
 export const updateTask = async (req, res) => {
   try {
-    const result = await pool.query('UPDATE tasks SET ? WHERE id=?', [
-      req.body,
-      req.params.id
-    ])
+    const newTask = req.body
+    const { id } = req.params
+
+    await pool.query('UPDATE tasks SET ? WHERE id=?', [newTask, id])
 
     return res.sendStatus(204)
   } catch (error) {

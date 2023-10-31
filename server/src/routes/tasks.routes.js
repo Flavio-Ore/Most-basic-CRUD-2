@@ -4,6 +4,7 @@ import {
   deleteTask,
   getTask,
   getTasks,
+  patchTask,
   updateTask
 } from '../controllers/tasks.controller.js'
 
@@ -14,5 +15,6 @@ router.get('/tasks/:id', getTask)
 router.post('/tasks', createTask)
 router.put('/tasks/:id', updateTask)
 router.delete('/tasks/:id', deleteTask)
+router.patch('/tasks/:id', patchTask)
 
 export default router
