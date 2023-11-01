@@ -3,7 +3,7 @@ import { TaskContext } from '../contexts/TaskContext'
 
 export function useTasks () {
   const taskContext = useContext(TaskContext)
-
+  console.log('tasksContext :>> ', taskContext)
   if (taskContext == null) {
     throw new Error('useTasks must be used within a TaskProvider')
   }
